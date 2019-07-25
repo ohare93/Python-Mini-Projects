@@ -1,26 +1,39 @@
 '''
-	Test Playlist Generator v1.01
+	Test Playlist Generator v1.02
 	
 	Description: Used to create a test playlist file for VS
 	Author: Jordan Munch O'Hare
-	Date: 20-06-2019
+	Date: 25-07-2019
+	
+	Optional Arguments:
+		1: Filename to read
+		2: Location to save file
 '''
 
 import time
 import sys
 from pathlib import Path
 
-# Take in optional arguments, which can specify the filename
 nameOfFileToParse = ""
+locationToSaveFile = ""
 args = sys.argv[1:]
 #print(args)
-if(len(args) == 0):
-	nameOfFileToParse = "tests.txt"
-elif(len(args) == 1):
+
+def Argument1FileName():
+	global nameOfFileToParse
 	nameOfFileToParse = args[0]
 	if nameOfFileToParse.find('.') == -1:
 		print('Filename error, did you forget the filetype ".txt"?')
 		exit()
+
+
+if len(args) == 0:
+	nameOfFileToParse = "tests.txt"
+elif len(args) == 1:
+	Argument1FileName()
+elif len(args) == 2:
+	Argument1FileName()
+	locationToSaveFile = args[1]
 else:
 	print("Too many arguments")
 	exit()
@@ -37,7 +50,7 @@ if(not Path(inputFileName).is_file()):
 
 # Open files, creating the output file if it does not exist
 fileIn = open(inputFileName)
-fileOut = open(outFileName, 'w+')
+fileOut = open(locationToSaveFile + outFileName, 'w+')
 
 ##################
 
@@ -54,4 +67,4 @@ fileOut.write('</Playlist>')
 fileIn.close()
 fileOut.close()
 
-print('Generated ' + outFileName + ' with ' + str(testCount) + ' tests')
+print('Generated ' + locationToSaveFile + outFileName + ' with ' + str(testCount) + ' tests')
