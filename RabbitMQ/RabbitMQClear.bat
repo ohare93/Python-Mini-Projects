@@ -1,0 +1,3 @@
+python RabbitMQClearAllQueues.py
+
+PAUSE
